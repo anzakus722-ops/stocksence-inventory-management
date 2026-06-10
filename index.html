@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard | StockSense Inventory</title>
+  <link rel="stylesheet" href="css/style.css"/>
+</head>
+<body>
+<div class="wrapper">
+
+  <!-- Mobile Overlay -->
+  <div class="overlay-bg" id="overlayBg"></div>
+
+  <!-- ===== SIDEBAR ===== -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <div class="logo-icon">📦</div>
+      <div>
+        <div class="logo-text">StockSense</div>
+        <div class="logo-sub">Inventory Management</div>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="nav-label">Main Menu</div>
+      <a href="index.html" class="nav-item active">
+        <span class="nav-icon">🏠</span> Dashboard
+      </a>
+      <a href="products.html" class="nav-item">
+        <span class="nav-icon">📋</span> Products
+      </a>
+      <a href="add-product.html" class="nav-item">
+        <span class="nav-icon">➕</span> Add Product
+      </a>
+
+      <div class="nav-label">Management</div>
+      <a href="#" class="nav-item" onclick="openModal('comingSoonModal'); return false;">
+        <span class="nav-icon">🏷️</span> Categories
+      </a>
+      <a href="#" class="nav-item" onclick="openModal('comingSoonModal'); return false;">
+        <span class="nav-icon">📦</span> Stock Alerts
+        <span class="nav-badge">3</span>
+      </a>
+      <a href="#" class="nav-item" onclick="openModal('comingSoonModal'); return false;">
+        <span class="nav-icon">📊</span> Reports
+      </a>
+      <a href="#" class="nav-item" onclick="openModal('comingSoonModal'); return false;">
+        <span class="nav-icon">🚚</span> Suppliers
+      </a>
+
+      <div class="nav-label">Account</div>
+      <a href="#" class="nav-item" onclick="openModal('comingSoonModal'); return false;">
+        <span class="nav-icon">⚙️</span> Settings
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="user-card">
+        <div class="user-avatar">AD</div>
+        <div>
+          <div class="user-name">Admin User</div>
+          <div class="user-role">Store Manager</div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ===== MAIN CONTENT ===== -->
+  <div class="main-content">
+
+    <!-- Topbar -->
+    <header class="topbar">
+      <div class="topbar-left">
+        <button class="menu-toggle" id="menuToggle">☰</button>
+        <div>
+          <div class="page-title">Dashboard</div>
+          <div class="page-breadcrumb">Welcome back, Admin 👋</div>
+        </div>
+      </div>
+      <div class="topbar-right">
+        <div class="search-box topbar-search">
+          <span>🔍</span>
+          <input class="topbar-search-input" type="text" placeholder="Search products..."/>
+        </div>
+        <button class="topbar-btn" onclick="openModal('notifModal')">
+          🔔
+          <span class="notif-dot"></span>
+        </button>
+        <button class="topbar-btn">👤</button>
+      </div>
+    </header>
+
+    <!-- Page Body -->
+    <div class="page-body">
+
+      <!-- Stats Cards -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon-wrap orange">📦</div>
+          <div>
+            <div class="stat-value">248</div>
+            <div class="stat-label">Total Products</div>
+            <div class="stat-change up">▲ 12 this month</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon-wrap green">💰</div>
+          <div>
+            <div class="stat-value">$84,320</div>
+            <div class="stat-label">Inventory Value</div>
+            <div class="stat-change up">▲ $3,200 this week</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon-wrap blue">🏷️</div>
+          <div>
+            <div class="stat-value">9</div>
+            <div class="stat-label">Categories</div>
+            <div class="stat-change up">▲ 1 new added</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon-wrap red">⚠️</div>
+          <div>
+            <div class="stat-value">3</div>
+            <div class="stat-label">Low Stock Items</div>
+            <div class="stat-change down">▼ Needs restocking</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Middle Grid: Recent Products + Category Breakdown -->
+      <div class="dashboard-grid">
+
+        <!-- Recent Products Table -->
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <div class="section-title">Recent Products</div>
+              <div class="section-sub">Last 6 added items</div>
+            </div>
+            <a href="products.html" class="btn btn-outline btn-sm">View All →</a>
+          </div>
+          <div class="card-body">
+            <table>
+              <thead>
+                <tr>
+                  <th>Product</th>
+                  <th>Category</th>
+                  <th>Price</th>
+                  <th>Stock</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <div class="product-cell">
+                      <div class="product-img">💻</div>
+                      <div>
+                        <div class="product-name">MacBook Pro 14"</div>
+                        <div class="product-id">#SKU-0021</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td><span class="badge badge-blue">Electronics</span></td>
+                  <td><strong>$1,999</strong></td>
+                  <td>42 units</td>
+                  <td><span class="badge badge-green">In Stock</span></td>
+                  <td>
+                    <div class="action-btns">
+                      <button class="icon-btn" onclick="openModal('dashProductModal')" title="View">👁️</button>
+                      <a href="add-product.html" class="icon-btn" title="Edit">✏️</a>
+                      <button class="icon-btn danger" onclick="confirmDelete('MacBook Pro 14&quot;')" title="Delete">🗑️</button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="product-cell">
+                      <div class="product-img">👗</div>
+                      <div>
+                        <div class="product-name">Denim Jacket</div>
+                        <div class="product-id">#SKU-0034</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td><span class="badge badge-gray">Clothing</span></td>
+                  <td><strong>$89</strong></td>
+                  <td>8 units</td>
+                  <td><span class="badge badge-yellow">Low Stock</span></td>
+                  <td>
+                    <div class="action-btns">
+                      <button class="icon-btn" onclick="openModal('dashProductModal')" title="View">👁️</button>
+                      <a href="add-product.html" class="icon-btn" title="Edit">✏️</a>
+                      <button class="icon-btn danger" onclick="confirmDelete('Denim Jacket')" title="Delete">🗑️</button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="product-cell">
+                      <div class="product-img">🪑</div>
+                      <div>
+                        <div class="product-name">Ergonomic Chair</div>
+                        <div class="product-id">#SKU-0057</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td><span class="badge badge-gray">Furniture</span></td>
+                  <td><strong>$349</strong></td>
+                  <td>23 units</td>
+                  <td><span class="badge badge-green">In Stock</span></td>
+                  <td>
+                    <div class="action-btns">
+                      <button class="icon-btn" onclick="openModal('dashProductModal')" title="View">👁️</button>
+                      <a href="add-product.html" class="icon-btn" title="Edit">✏️</a>
+                      <button class="icon-btn danger" onclick="confirmDelete('Ergonomic Chair')" title="Delete">🗑️</button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="product-cell">
+                      <div class="product-img">⚽</div>
+                      <div>
+                        <div class="product-name">Soccer Ball Pro</div>
+                        <div class="product-id">#SKU-0068</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td><span class="badge badge-gray">Sports</span></td>
+                  <td><strong>$45</strong></td>
+                  <td>3 units</td>
+                  <td><span class="badge badge-red">Out of Stock</span></td>
+                  <td>
+                    <div class="action-btns">
+                      <button class="icon-btn" onclick="openModal('dashProductModal')" title="View">👁️</button>
+                      <a href="add-product.html" class="icon-btn" title="Edit">✏️</a>
+                      <button class="icon-btn danger" onclick="confirmDelete('Soccer Ball Pro')" title="Delete">🗑️</button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="product-cell">
+                      <div class="product-img">💄</div>
+                      <div>
+                        <div class="product-name">Matte Lipstick Set</div>
+                        <div class="product-id">#SKU-0079</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td><span class="badge badge-gray">Beauty</span></td>
+                  <td><strong>$28</strong></td>
+                  <td>95 units</td>
+                  <td><span class="badge badge-green">In Stock</span></td>
+                  <td>
+                    <div class="action-btns">
+                      <button class="icon-btn" onclick="openModal('dashProductModal')" title="View">👁️</button>
+                      <a href="add-product.html" class="icon-btn" title="Edit">✏️</a>
+                      <button class="icon-btn danger" onclick="confirmDelete('Matte Lipstick Set')" title="Delete">🗑️</button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="product-cell">
+                      <div class="product-img">📚</div>
+                      <div>
+                        <div class="product-name">JS Programming Book</div>
+                        <div class="product-id">#SKU-0083</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td><span class="badge badge-gray">Books</span></td>
+                  <td><strong>$55</strong></td>
+                  <td>67 units</td>
+                  <td><span class="badge badge-green">In Stock</span></td>
+                  <td>
+                    <div class="action-btns">
+                      <button class="icon-btn" onclick="openModal('dashProductModal')" title="View">👁️</button>
+                      <a href="add-product.html" class="icon-btn" title="Edit">✏️</a>
+                      <button class="icon-btn danger" onclick="confirmDelete('JS Programming Book')" title="Delete">🗑️</button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Right Column -->
+        <div style="display:flex;flex-direction:column;gap:20px;">
+
+          <!-- Category Breakdown -->
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <div class="section-title">By Category</div>
+                <div class="section-sub">Product distribution</div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="category-list">
+                <div class="category-item">
+                  <div class="cat-dot" style="background:#3b82f6"></div>
+                  <div class="cat-name">Electronics</div>
+                  <div class="cat-count">54 items</div>
+                  <div class="cat-value">$41,200</div>
+                </div>
+                <div class="category-item">
+                  <div class="cat-dot" style="background:#f97316"></div>
+                  <div class="cat-name">Clothing</div>
+                  <div class="cat-count">78 items</div>
+                  <div class="cat-value">$12,450</div>
+                </div>
+                <div class="category-item">
+                  <div class="cat-dot" style="background:#22c55e"></div>
+                  <div class="cat-name">Furniture</div>
+                  <div class="cat-count">31 items</div>
+                  <div class="cat-value">$18,700</div>
+                </div>
+                <div class="category-item">
+                  <div class="cat-dot" style="background:#ec4899"></div>
+                  <div class="cat-name">Beauty</div>
+                  <div class="cat-count">42 items</div>
+                  <div class="cat-value">$5,340</div>
+                </div>
+                <div class="category-item">
+                  <div class="cat-dot" style="background:#a855f7"></div>
+                  <div class="cat-name">Sports</div>
+                  <div class="cat-count">28 items</div>
+                  <div class="cat-value">$4,210</div>
+                </div>
+                <div class="category-item">
+                  <div class="cat-dot" style="background:#64748b"></div>
+                  <div class="cat-name">Others</div>
+                  <div class="cat-count">15 items</div>
+                  <div class="cat-value">$2,420</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Low Stock Alerts -->
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <div class="section-title">⚠️ Low Stock Alerts</div>
+                <div class="section-sub">Items needing restock</div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="alert-list">
+                <div class="alert-item">
+                  <div class="alert-emoji">👗</div>
+                  <div>
+                    <div class="alert-name">Denim Jacket</div>
+                    <div class="alert-stock">Only 8 units left</div>
+                  </div>
+                  <div class="alert-action">
+                    <a href="add-product.html" class="btn btn-outline btn-sm">Restock</a>
+                  </div>
+                </div>
+                <div class="alert-item">
+                  <div class="alert-emoji">⚽</div>
+                  <div>
+                    <div class="alert-name">Soccer Ball Pro</div>
+                    <div class="alert-stock">Only 3 units left</div>
+                  </div>
+                  <div class="alert-action">
+                    <a href="add-product.html" class="btn btn-outline btn-sm">Restock</a>
+                  </div>
+                </div>
+                <div class="alert-item">
+                  <div class="alert-emoji">🔧</div>
+                  <div>
+                    <div class="alert-name">Cordless Drill</div>
+                    <div class="alert-stock">Only 5 units left</div>
+                  </div>
+                  <div class="alert-action">
+                    <a href="add-product.html" class="btn btn-outline btn-sm">Restock</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <!-- end dashboard-grid -->
+
+    </div>
+    <!-- end page-body -->
+  </div>
+  <!-- end main-content -->
+
+</div><!-- end wrapper -->
+
+<!-- ===== MODALS ===== -->
+
+<!-- Product Quick View Modal (Dashboard) -->
+<div class="modal-overlay" id="dashProductModal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">Product Details</div>
+      <button class="modal-close">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-product-img">💻</div>
+      <div class="detail-grid">
+        <div class="detail-item">
+          <div class="detail-label">Product Name</div>
+          <div class="detail-value">MacBook Pro 14"</div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-label">SKU</div>
+          <div class="detail-value">#SKU-0021</div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-label">Category</div>
+          <div class="detail-value">Electronics</div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-label">Unit Price</div>
+          <div class="detail-value" style="color:var(--accent)">$1,999</div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-label">Quantity</div>
+          <div class="detail-value">42 units</div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-label">Status</div>
+          <div class="detail-value"><span class="badge badge-green">In Stock</span></div>
+        </div>
+        <div class="detail-item" style="grid-column:1/-1">
+          <div class="detail-label">Description</div>
+          <div class="detail-value" style="font-weight:400;font-size:13px;color:var(--text-mid)">Apple MacBook Pro with M3 chip, 14-inch Liquid Retina XDR display, 16GB RAM, 512GB SSD.</div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <a href="add-product.html" class="btn btn-outline">✏️ Edit</a>
+      <button class="modal-cancel btn btn-primary">Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- Delete Confirm Modal -->
+<div class="modal-overlay" id="deleteModal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">Confirm Delete</div>
+      <button class="modal-close">✕</button>
+    </div>
+    <div class="modal-body" style="text-align:center;padding:32px 24px;">
+      <div style="font-size:48px;margin-bottom:16px;">🗑️</div>
+      <div style="font-size:17px;font-weight:700;margin-bottom:8px;">Delete Product?</div>
+      <p style="color:var(--text-mid);font-size:14px;">
+        Are you sure you want to delete <strong id="deleteProductName"></strong>?<br/>
+        This action cannot be undone.
+      </p>
+    </div>
+    <div class="modal-footer">
+      <button class="modal-cancel btn btn-outline">Cancel</button>
+      <button class="btn btn-danger" onclick="closeModal('deleteModal')">Yes, Delete</button>
+    </div>
+  </div>
+</div>
+
+<!-- Notifications Modal -->
+<div class="modal-overlay" id="notifModal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">🔔 Notifications</div>
+      <button class="modal-close">✕</button>
+    </div>
+    <div class="modal-body" style="padding:0;">
+      <div style="border-bottom:1px solid var(--border);padding:14px 20px;display:flex;gap:12px;align-items:center;">
+        <span style="font-size:22px;">⚠️</span>
+        <div>
+          <div style="font-size:13px;font-weight:600;">Low Stock: Denim Jacket</div>
+          <div style="font-size:12px;color:var(--text-light);">Only 8 units remaining — 2 hours ago</div>
+        </div>
+      </div>
+      <div style="border-bottom:1px solid var(--border);padding:14px 20px;display:flex;gap:12px;align-items:center;">
+        <span style="font-size:22px;">📦</span>
+        <div>
+          <div style="font-size:13px;font-weight:600;">New Product Added</div>
+          <div style="font-size:12px;color:var(--text-light);">JS Programming Book added — 5 hours ago</div>
+        </div>
+      </div>
+      <div style="padding:14px 20px;display:flex;gap:12px;align-items:center;">
+        <span style="font-size:22px;">🚚</span>
+        <div>
+          <div style="font-size:13px;font-weight:600;">Supplier Delivery Scheduled</div>
+          <div style="font-size:12px;color:var(--text-light);">Electronics restock arriving tomorrow</div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="modal-cancel btn btn-primary">Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- Coming Soon Modal -->
+<div class="modal-overlay" id="comingSoonModal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">Coming Soon</div>
+      <button class="modal-close">✕</button>
+    </div>
+    <div class="modal-body" style="text-align:center;padding:40px 24px;">
+      <div style="font-size:48px;margin-bottom:16px;">🚧</div>
+      <div style="font-size:17px;font-weight:700;margin-bottom:8px;">Feature Coming Soon</div>
+      <p style="color:var(--text-mid);font-size:14px;">This section is under development. Check back soon!</p>
+    </div>
+    <div class="modal-footer">
+      <button class="modal-cancel btn btn-primary">Got it</button>
+    </div>
+  </div>
+</div>
+
+<script src="js/main.js"></script>
+</body>
+</html>
