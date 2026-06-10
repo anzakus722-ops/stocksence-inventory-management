@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Add Product | StockSense Inventory</title>
+  <link rel="stylesheet" href="css/style.css"/>
+</head>
+<body>
+<div class="wrapper">
+
+  <!-- Mobile Overlay -->
+  <div class="overlay-bg" id="overlayBg"></div>
+
+  <!-- ===== SIDEBAR ===== -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <div class="logo-icon">📦</div>
+      <div>
+        <div class="logo-text">StockSense</div>
+        <div class="logo-sub">Inventory Management</div>
+      </div>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-label">Main Menu</div>
+      <a href="index.html" class="nav-item">
+        <span class="nav-icon">🏠</span> Dashboard
+      </a>
+      <a href="products.html" class="nav-item">
+        <span class="nav-icon">📋</span> Products
+      </a>
+      <a href="add-product.html" class="nav-item active">
+        <span class="nav-icon">➕</span> Add Product
+      </a>
+      <div class="nav-label">Management</div>
+      <a href="#" class="nav-item" onclick="openModal('comingSoonModal'); return false;">
+        <span class="nav-icon">🏷️</span> Categories
+      </a>
+      <a href="#" class="nav-item" onclick="openModal('comingSoonModal'); return false;">
+        <span class="nav-icon">📦</span> Stock Alerts
+        <span class="nav-badge">3</span>
+      </a>
+      <a href="#" class="nav-item" onclick="openModal('comingSoonModal'); return false;">
+        <span class="nav-icon">📊</span> Reports
+      </a>
+      <a href="#" class="nav-item" onclick="openModal('comingSoonModal'); return false;">
+        <span class="nav-icon">🚚</span> Suppliers
+      </a>
+      <div class="nav-label">Account</div>
+      <a href="#" class="nav-item" onclick="openModal('comingSoonModal'); return false;">
+        <span class="nav-icon">⚙️</span> Settings
+      </a>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="user-card">
+        <div class="user-avatar">AD</div>
+        <div>
+          <div class="user-name">Admin User</div>
+          <div class="user-role">Store Manager</div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ===== MAIN CONTENT ===== -->
+  <div class="main-content">
+
+    <!-- Topbar -->
+    <header class="topbar">
+      <div class="topbar-left">
+        <button class="menu-toggle" id="menuToggle">☰</button>
+        <div>
+          <div class="page-title">Add New Product</div>
+          <div class="page-breadcrumb">Home / Products / Add Product</div>
+        </div>
+      </div>
+      <div class="topbar-right">
+        <a href="products.html" class="btn btn-outline btn-sm">← Back to Products</a>
+        <button class="topbar-btn">👤</button>
+      </div>
+    </header>
+
+    <!-- Page Body -->
+    <div class="page-body">
+
+      <div style="display:grid;grid-template-columns:1fr 320px;gap:24px;align-items:start;">
+
+        <!-- Left: Form -->
+        <div class="form-card">
+          <div style="margin-bottom:24px;">
+            <div class="section-title">Product Information</div>
+            <div class="section-sub">Fill in the details below to add a new product to inventory</div>
+          </div>
+
+          <form id="addProductForm" novalidate>
+
+            <!-- Basic Info -->
+            <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-light);margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid var(--border);">
+              Basic Information
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="productName">Product Name <span>*</span></label>
+                <input class="form-input" type="text" id="productName"
+                  placeholder="e.g. MacBook Pro 14&quot;" required/>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="productSKU">SKU / Product Code <span>*</span></label>
+                <input class="form-input" type="text" id="productSKU"
+                  placeholder="e.g. SKU-0021" required/>
+                <div class="form-hint">Unique identifier for this product</div>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="productCategory">Category <span>*</span></label>
+                <select class="form-select" id="productCategory" required>
+                  <option value="" disabled selected>Select a category</option>
+                  <option value="electronics">Electronics</option>
+                  <option value="clothing">Clothing</option>
+                  <option value="furniture">Furniture</option>
+                  <option value="sports">Sports</option>
+                  <option value="beauty">Beauty</option>
+                  <option value="books">Books</option>
+                  <option value="tools">Tools</option>
+                  <option value="food">Food</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="productBrand">Brand / Supplier</label>
+                <input class="form-input" type="text" id="productBrand"
+                  placeholder="e.g. Apple, Samsung"/>
+              </div>
+            </div>
+
+            <div class="form-group full" style="grid-column:1/-1;">
+              <label class="form-label" for="productDesc">Product Description <span>*</span></label>
+              <textarea class="form-input" id="productDesc" rows="3"
+                placeholder="Describe the product, its features and specifications..." required></textarea>
+            </div>
+
+            <!-- Pricing & Stock -->
+            <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-light);margin:8px 0 14px;padding-bottom:8px;border-bottom:1px solid var(--border);">
+              Pricing & Stock
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="productPrice">Unit Price (USD) <span>*</span></label>
+                <input class="form-input" type="number" id="productPrice"
+                  placeholder="0.00" min="0" step="0.01" required/>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="productCostPrice">Cost Price (USD)</label>
+                <input class="form-input" type="number" id="productCostPrice"
+                  placeholder="0.00" min="0" step="0.01"/>
+                <div class="form-hint">Purchase price from supplier</div>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="productQty">Current Stock (Units) <span>*</span></label>
+                <input class="form-input" type="number" id="productQty"
+                  placeholder="0" min="0" required/>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="productMaxQty">Maximum Stock (Units)</label>
+                <input class="form-input" type="number" id="productMaxQty"
+                  placeholder="100" min="1"/>
+                <div class="form-hint">Used to track stock level percentage</div>
+              </div>
+            </div>
+
+            <!-- Stock level bar -->
+            <div class="form-group" style="margin-top:-8px;">
+              <div class="stock-bar-wrap">
+                <div style="display:flex;justify-content:space-between;margin-bottom:6px;">
+                  <span class="form-hint" style="margin:0;">Stock Level</span>
+                  <span class="form-hint" style="margin:0;" id="stockBarLabel">0% of max stock</span>
+                </div>
+                <div class="stock-bar-bg">
+                  <div class="stock-bar-fill" id="stockBarFill" style="width:0%;background:#22c55e;"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="productMinStock">Low Stock Alert (Units)</label>
+                <input class="form-input" type="number" id="productMinStock"
+                  placeholder="10" min="0"/>
+                <div class="form-hint">Alert when stock falls below this</div>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="productStatus">Status <span>*</span></label>
+                <select class="form-select" id="productStatus" required>
+                  <option value="" disabled selected>Select status</option>
+                  <option value="in-stock">In Stock</option>
+                  <option value="low-stock">Low Stock</option>
+                  <option value="out-of-stock">Out of Stock</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Additional Details -->
+            <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-light);margin:8px 0 14px;padding-bottom:8px;border-bottom:1px solid var(--border);">
+              Additional Details
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="productWeight">Weight (kg)</label>
+                <input class="form-input" type="number" id="productWeight"
+                  placeholder="0.5" min="0" step="0.01"/>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="productLocation">Storage Location</label>
+                <input class="form-input" type="text" id="productLocation"
+                  placeholder="e.g. Shelf A3, Warehouse B"/>
+              </div>
+            </div>
+
+            <div class="form-group" style="grid-column:1/-1;">
+              <label class="form-label" for="productNotes">Additional Notes</label>
+              <textarea class="form-input" id="productNotes" rows="2"
+                placeholder="Any extra notes about storage, handling, etc."></textarea>
+            </div>
+
+            <div class="form-actions">
+              <button type="submit" class="btn btn-primary">
+                ✅ Save Product
+              </button>
+              <button type="button" class="btn btn-outline" onclick="openModal('previewModal')">
+                👁️ Preview
+              </button>
+              <a href="products.html" class="btn btn-outline">Cancel</a>
+            </div>
+
+          </form>
+        </div>
+        <!-- end form-card -->
+
+        <!-- Right: Preview Card -->
+        <div style="position:sticky;top:88px;">
+          <div class="card" style="overflow:visible;">
+            <div class="card-header">
+              <div class="section-title">Live Preview</div>
+            </div>
+            <div style="padding:20px;">
+              <div class="product-card" style="cursor:default;box-shadow:none;border:1.5px solid var(--border);">
+                <div class="product-card-img" style="background:var(--bg);">
+                  <span id="previewEmoji" style="font-size:56px;">📦</span>
+                </div>
+                <div class="product-card-body">
+                  <div class="product-card-name" id="previewName">Product Name</div>
+                  <div class="product-card-cat" id="previewCategory">Category</div>
+                  <div class="product-card-footer">
+                    <div class="product-price" id="previewPrice">$0.00</div>
+                    <div class="product-qty">Qty: <span id="previewQty">0</span></div>
+                  </div>
+                </div>
+              </div>
+
+              <div style="margin-top:16px;">
+                <div class="form-hint" style="margin-bottom:8px;font-weight:600;color:var(--text-mid);">Quick Summary</div>
+                <div style="display:flex;flex-direction:column;gap:8px;">
+                  <div style="display:flex;justify-content:space-between;font-size:13px;">
+                    <span style="color:var(--text-light);">SKU</span>
+                    <span id="previewSKU" style="font-weight:600;">—</span>
+                  </div>
+                  <div style="display:flex;justify-content:space-between;font-size:13px;">
+                    <span style="color:var(--text-light);">Brand</span>
+                    <span id="previewBrand" style="font-weight:600;">—</span>
+                  </div>
+                  <div style="display:flex;justify-content:space-between;font-size:13px;">
+                    <span style="color:var(--text-light);">Status</span>
+                    <span id="previewStatus" class="badge badge-gray">—</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card" style="margin-top:16px;">
+            <div class="card-header"><div class="section-title">💡 Tips</div></div>
+            <div style="padding:16px 20px;font-size:13px;color:var(--text-mid);line-height:1.6;">
+              <p style="margin-bottom:8px;">• Use clear, descriptive product names for easy searching.</p>
+              <p style="margin-bottom:8px;">• Set a low stock alert to get notified before running out.</p>
+              <p style="margin-bottom:8px;">• The SKU should be unique across all products.</p>
+              <p>• Adding storage location helps staff find items quickly.</p>
+            </div>
+          </div>
+        </div>
+        <!-- end right column -->
+
+      </div>
+      <!-- end grid -->
+
+    </div><!-- end page-body -->
+  </div><!-- end main-content -->
+</div><!-- end wrapper -->
+
+<!-- ===== MODALS ===== -->
+
+<!-- Success Modal -->
+<div class="modal-overlay" id="successModal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">Product Saved</div>
+      <button class="modal-close">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-success-icon"><span>✅</span></div>
+      <div class="modal-success-title">Product Added Successfully!</div>
+      <div class="modal-success-msg">
+        Your new product has been added to the inventory system and is now available in the product list.
+      </div>
+    </div>
+    <div class="modal-footer">
+      <a href="add-product.html" class="btn btn-outline modal-cancel">Add Another</a>
+      <a href="products.html" class="btn btn-primary">View Products →</a>
+    </div>
+  </div>
+</div>
+
+<!-- Preview Modal -->
+<div class="modal-overlay" id="previewModal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">Product Preview</div>
+      <button class="modal-close">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-product-img" id="modalPreviewEmoji">📦</div>
+      <div class="detail-grid">
+        <div class="detail-item">
+          <div class="detail-label">Name</div>
+          <div class="detail-value" id="modalPreviewName">—</div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-label">SKU</div>
+          <div class="detail-value" id="modalPreviewSKU">—</div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-label">Category</div>
+          <div class="detail-value" id="modalPreviewCat">—</div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-label">Price</div>
+          <div class="detail-value" id="modalPreviewPrice" style="color:var(--accent)">—</div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-label">Stock</div>
+          <div class="detail-value" id="modalPreviewQty">—</div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-label">Brand</div>
+          <div class="detail-value" id="modalPreviewBrand">—</div>
+        </div>
+        <div class="detail-item" style="grid-column:1/-1;">
+          <div class="detail-label">Description</div>
+          <div class="detail-value" id="modalPreviewDesc" style="font-weight:400;font-size:13px;color:var(--text-mid);">—</div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="modal-cancel btn btn-outline">← Edit</button>
+      <button class="btn btn-primary" onclick="closeModal('previewModal');document.getElementById('addProductForm').requestSubmit();">Save Product ✅</button>
+    </div>
+  </div>
+</div>
+
+<!-- Coming Soon Modal -->
+<div class="modal-overlay" id="comingSoonModal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">Coming Soon</div>
+      <button class="modal-close">✕</button>
+    </div>
+    <div class="modal-body" style="text-align:center;padding:40px 24px;">
+      <div style="font-size:48px;margin-bottom:16px;">🚧</div>
+      <div style="font-size:17px;font-weight:700;margin-bottom:8px;">Feature Coming Soon</div>
+      <p style="color:var(--text-mid);font-size:14px;">This section is under development. Check back soon!</p>
+    </div>
+    <div class="modal-footer">
+      <button class="modal-cancel btn btn-primary">Got it</button>
+    </div>
+  </div>
+</div>
+
+<script src="js/main.js"></script>
+<script>
+// Live Preview Sync
+const categoryEmojis = {
+  electronics:'💻', clothing:'👗', food:'🍎',
+  furniture:'🪑', sports:'⚽', beauty:'💄',
+  books:'📚', tools:'🔧', other:'📦'
+};
+
+function syncPreview() {
+  const name     = document.getElementById('productName').value     || 'Product Name';
+  const sku      = document.getElementById('productSKU').value      || '—';
+  const cat      = document.getElementById('productCategory').value;
+  const brand    = document.getElementById('productBrand').value    || '—';
+  const price    = document.getElementById('productPrice').value;
+  const qty      = document.getElementById('productQty').value      || '0';
+  const status   = document.getElementById('productStatus').value;
+  const desc     = document.getElementById('productDesc').value     || '—';
+
+  document.getElementById('previewName').textContent     = name;
+  document.getElementById('previewSKU').textContent      = sku;
+  document.getElementById('previewBrand').textContent    = brand;
+  document.getElementById('previewQty').textContent      = qty;
+  document.getElementById('previewPrice').textContent    = price ? '$' + parseFloat(price).toFixed(2) : '$0.00';
+  document.getElementById('previewCategory').textContent = cat ? cat.charAt(0).toUpperCase() + cat.slice(1) : 'Category';
+  document.getElementById('previewEmoji').textContent    = categoryEmojis[cat] || '📦';
+
+  const statusEl = document.getElementById('previewStatus');
+  if (status === 'in-stock')       { statusEl.textContent = 'In Stock';     statusEl.className = 'badge badge-green'; }
+  else if (status === 'low-stock') { statusEl.textContent = 'Low Stock';    statusEl.className = 'badge badge-yellow'; }
+  else if (status === 'out-of-stock'){ statusEl.textContent = 'Out of Stock'; statusEl.className = 'badge badge-red'; }
+  else { statusEl.textContent = '—'; statusEl.className = 'badge badge-gray'; }
+
+  // Modal preview
+  document.getElementById('modalPreviewEmoji').textContent = categoryEmojis[cat] || '📦';
+  document.getElementById('modalPreviewName').textContent  = name;
+  document.getElementById('modalPreviewSKU').textContent   = sku;
+  document.getElementById('modalPreviewCat').textContent   = cat ? cat.charAt(0).toUpperCase() + cat.slice(1) : '—';
+  document.getElementById('modalPreviewPrice').textContent = price ? '$' + parseFloat(price).toFixed(2) : '—';
+  document.getElementById('modalPreviewQty').textContent   = qty + ' units';
+  document.getElementById('modalPreviewBrand').textContent = brand;
+  document.getElementById('modalPreviewDesc').textContent  = desc;
+}
+
+// Attach sync to all inputs
+document.querySelectorAll('#addProductForm input, #addProductForm select, #addProductForm textarea')
+  .forEach(el => el.addEventListener('input', syncPreview));
+</script>
+</body>
+</html>
